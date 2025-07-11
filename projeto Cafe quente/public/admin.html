@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Totem de Autoatendimento - Gestão</title>
+    <link rel="stylesheet" href="/FrontAddons/CSS/adm/style.css">
+    <link rel="stylesheet" href="/FrontAddons/CSS/adm/gProdutos.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Tela de Login (Acesso Restrito) -->
+        <div id="login-screen" class="screen active">
+            <div class="login-box">
+                <h2>Tela de Login (Acesso Restrito)</h2>
+                <p class="access-info">Acesso apenas para funcionários autorizados.</p>
+                <div class="form-group">
+                    <label for="username">Usuário (usuário):</label>
+                    <input type="text" id="username" name="username" placeholder="Digite seu usuário">
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua senha">
+                </div>
+                <button id="login-button">Entrar</button>
+            </div>
+        </div>
+
+        <!-- Aplicação Principal (escondida por padrão, visível após login) -->
+        <div id="main-app" class="screen">
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Menu Principal</h3>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><button class="menu-item" data-target="dashboard">📊 Resumo do Totem</button></li>
+                        <li><button class="menu-item" data-target="product-management">🍔 Gestão de Produtos</button></li>
+                        <li><button class="menu-item" data-target="realtime-orders">🧾 Pedidos em Tempo Real</button></li>
+                        <li><button class="menu-item" data-target="system-settings">🛠️ Configurações do Sistema</button></li>
+                        <li><button class="menu-item" data-target="service-mode">🧍 Modo de Atendimento</button></li>
+                        <li><button class="menu-item" data-target="logs-history">📁 Logs / Histórico</button></li>
+                        <li class="logout-item"><button id="logout-button">🔒 Sair</button></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="content-area">
+                <!-- Seção: Resumo do Totem -->
+                <section id="dashboard" class="content-section active">
+                    <h2>📊 Resumo do Totem</h2>
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>Pedidos Hoje</h3>
+                            <p class="metric">150</p>
+                        </div>
+                        <div class="card">
+                            <h3>Faturamento Hoje</h3>
+                            <p class="metric">R$ 2.500,00</p>
+                        </div>
+                        <div class="card">
+                            <h3>Tempo Médio Pedido</h3>
+                            <p class="metric">3 min</p>
+                        </div>
+                        <div class="card">
+                            <h3>Produtos Ativos</h3>
+                            <p class="metric">45</p>
+                        </div>
+                    </div>
+                    <p>Informações gerais e estatísticas de desempenho do totem.</p>
+                </section>
+
+                <!-- Seção: Gestão de Produtos -->
+                <section id="product-management" class="content-section">
+                    <div class="section-header">
+                        <h2>🍔 Gestão de Produtos</h2>
+                        <button id="add-product-btn" class="btn-primary">➕ Novo Produto</button>
+                    </div>
+
+                    <div class="product-list" id="product-list">
+                        <!-- Produtos serão carregados via JavaScript -->
+                    </div>
+
+                    <!-- Modal para adicionar/editar produto -->
+                    <div id="product-modal" class="modal" style="display: none;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 id="modal-title">Adicionar Produto</h3>
+                                <button class="modal-close">&times;</button>
+                            </div>
+                            <form id="product-form">
+                                <div class="form-group">
+                                    <label for="product-name">Nome:</label>
+                                    <input type="text" id="product-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-category">Categoria:</label>
+                                    <select id="product-category" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="lanche">🍔 Lanche</option>
+                            <option value="bebida">🥤 Bebida</option>
+                            <option value="acompanhamento">🍟 Acompanhamento</option>
+                            <option value="sobremesa">🍰 Sobremesa</option>
+                        </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-price">Preço (R$):</label>
+                                    <input type="number" id="product-price" step="0.01" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="product-image">Imagem do produto:</label>
+                                    <input type="text" id="product-image" placeholder="URL da imagem" required>
+                                </div>
+                                <div class="modal-actions">
+                                    <button type="button" class="btn-secondary modal-cancel">Cancelar</button>
+                                    <button type="submit" class="btn-primary">Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <!-- Exemplo de item de produto -->
+                <!---   <section id="product-management" class="content-section">
+                    <h2>🍔 Gestão de Produtos</h2>
+
+                    <h3>Lista de produtos disponíveis</h3>
+                    <div class="product-list">
+                        <div class="product-item">
+                            <img src="https://via.placeholder.com/100x100?text=Produto+1" alt="Produto Exemplo">
+                            <div class="product-details">
+                                <h4>Lanche X-Burger</h4>
+                                <p>Preço: R$ 15,00</p>
+                                <p>Categoria: Lanche</p>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon">✏️ Editar</button>
+                                <button class="btn-icon btn-danger">❌ Desativar</button>
+                                <button class="btn-icon">📷 Alterar imagem</button>
+                            </div>
+                        </div>
+                        <div class="product-item">
+                            <img src="https://via.placeholder.com/100x100?text=Produto+2" alt="Produto Exemplo">
+                            <div class="product-details">
+                                <h4>Refrigerante Cola</h4>
+                                <p>Preço: R$ 7,00</p>
+                                <p>Categoria: Bebida</p>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn-icon">✏️ Editar</button>
+                                <button class="btn-icon btn-danger">❌ Desativar</button>
+                                <button class="btn-icon">📷 Alterar imagem</button>
+                            </div>
+                        </div>
+                       
+        </div>
+
+        <h3>Adicionar novo produto</h3>
+        <form class="add-product-form">
+            <div class="form-group">
+                <label for="new-product-name">Nome:</label>
+                <input type="text" id="new-product-name" placeholder="Nome do produto" required>
+            </div>
+            <div class="form-group">
+                <label for="new-product-description">Descrição:</label>
+                <textarea id="new-product-description" placeholder="Descrição detalhada do produto"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="new-product-category">Categoria:</label>
+                <select id="new-product-category" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="lanche">Lanche</option>
+                                <option value="bebida">Bebida</option>
+                                <option value="acompanhamento">Acompanhamento</option>
+                                <option value="sobremesa">Sobremesa</option>
+                            </select>
+            </div>
+            <div class="form-group">
+                <label for="new-product-price">Preço:</label>
+                <input type="number" id="new-product-price" step="0.01" min="0" placeholder="0.00" required>
+            </div>
+            <div class="form-group">
+                <label for="new-product-image">Imagem:</label>
+                <input type="file" id="new-product-image" accept="image/*">
+            </div>
+            <button type="submit" class="btn-primary">Adicionar Produto</button>
+        </form>
+
+        <h3>Promoções</h3>
+        <div class="promotions-section">
+            <p>Gerencie promoções ativas e agendadas.</p>
+            <button class="btn-secondary">Criar Nova Promoção</button>
+            <ul class="promo-list">
+                <li>McOferta 1 - 10% de desconto (Ativa até 23h ) <button class="btn-icon">✏️</button> <button class="btn-icon btn-danger">❌</button></li>
+                <li>Combo Família - R$ 50,00 (Agendada para 01/07) <button class="btn-icon">✏️</button> <button class="btn-icon btn-danger">❌</button></li>
+            </ul>
+        </div>
+        </section>-->
+
+                <!-- Seção: Pedidos em Tempo Real -->
+                <section id="realtime-orders" class="content-section">
+                    <h2>🧾 Pedidos em Tempo Real</h2>
+                    <div class="order-list">
+                        <!-- Exemplo de item de pedido -->
+                        <div class="order-item status-selecting">
+                            <div class="order-header">
+                                <h4>Pedido Nº 12345</h4>
+                                <span class="order-status">Selecionando</span>
+                            </div>
+                            <p>Tempo médio: <span>00:05</span></p>
+                            <div class="order-details">
+                                <p>Itens: 1x Lanche X, 1x Refri Y</p>
+                                <p>Valor Total: R$ 20,00</p>
+                                <p>Forma de Pagamento: Cartão de Crédito</p>
+                            </div>
+                        </div>
+                        <div class="order-item status-payment">
+                            <div class="order-header">
+                                <h4>Pedido Nº 12346</h4>
+                                <span class="order-status">Pagamento</span>
+                            </div>
+                            <p>Tempo médio: <span>00:02</span></p>
+                            <div class="order-details">
+                                <p>Itens: 2x Lanche Z</p>
+                                <p>Valor Total: R$ 30,00</p>
+                                <p>Forma de Pagamento: Pix</p>
+                            </div>
+                        </div>
+                        <div class="order-item status-completed">
+                            <div class="order-header">
+                                <h4>Pedido Nº 12347</h4>
+                                <span class="order-status">Concluído</span>
+                            </div>
+                            <p>Tempo médio: <span>00:08</span></p>
+                            <div class="order-details">
+                                <p>Itens: 1x Acompanhamento A</p>
+                                <p>Valor Total: R$ 10,00</p>
+                                <p>Forma de Pagamento: Dinheiro</p>
+                            </div>
+                        </div>
+                        <!-- Mais pedidos seriam adicionados aqui via JS -->
+                    </div>
+                </section>
+
+                <!-- Seção: Configurações do Sistema -->
+                <section id="system-settings" class="content-section">
+                    <h2>🛠️ Configurações do Sistema</h2>
+                    <div class="settings-group">
+                        <h3>Idiomas disponíveis</h3>
+                        <select>
+                            <option value="pt-BR">Português (Brasil)</option>
+                            <option value="en-US">English (United States)</option>
+                            <option value="es-ES">Español (España)</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Tema visual</h3>
+                        <select>
+                            <option value="light">Claro</option>
+                            <option value="dark">Escuro</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Volume do som do totem</h3>
+                        <input type="range" min="0" max="100" value="75">
+                        <span>75%</span>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Ações do Sistema</h3>
+                        <button class="btn-secondary">Reset/Restart Totem</button>
+                        <button class="btn-secondary">Verificar Atualizações de Software</button>
+                        <button class="btn-primary">Aplicar Atualização</button>
+                    </div>
+                    <div class="settings-group">
+                        <h3>Testes de Hardware</h3>
+                        <button class="btn-secondary">Testar Touchscreen</button>
+                        <button class="btn-secondary">Testar Impressora</button>
+                        <button class="btn-secondary">Testar Som</button>
+                    </div>
+                </section>
+
+                <!-- Seção: Modo de Atendimento -->
+                <section id="service-mode" class="content-section">
+                    <h2>🧍 Modo de Atendimento</h2>
+                    <div class="service-mode-controls">
+                        <button class="btn-success">✅ Ativar atendimento ao público</button>
+                        <button class="btn-danger">❌ Desativar (exibe mensagem “Totem fora de serviço”)</button>
+                    </div>
+                    <div class="admin-lock-section">
+                        <h3>Travar acesso ao sistema</h3>
+                        <p>Proteja o acesso à tela de gestão com uma senha de administrador.</p>
+                        <div class="form-group">
+                            <input type="password" placeholder="Senha de administrador">
+                            <button class="btn-primary">🔒 Travar Acesso</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Seção: Logs / Histórico -->
+                <section id="logs-history" class="content-section">
+                    <h2>📁 Logs / Histórico</h2>
+                    <div class="log-section">
+                        <h3>Registro de erros</h3>
+                        <textarea class="log-display" readonly rows="8">
+[ERRO] 2025-06-16 14:30:01 - Falha na conexão com a impressora.
+[INFO] 2025-06-16 14:25:00 - Totem inicializado com sucesso.
+[AVISO] 2025-06-16 14:15:30 - Baixo nível de papel na impressora.
+[ERRO] 2025-06-16 13:50:10 - Falha ao processar pagamento do pedido #12340.
+                        </textarea>
+                        <button class="btn-secondary">Exportar Logs de Erro</button>
+                    </div>
+                    <div class="log-section">
+                        <h3>Histórico de reinicializações</h3>
+                        <ul class="history-list">
+                            <li>2025-06-16 14:25:00 - Reinicialização manual pelo administrador.</li>
+                            <li>2025-06-15 08:00:00 - Reinicialização programada do sistema.</li>
+                            <li>2025-06-14 23:59:00 - Reinicialização automática após atualização.</li>
+                        </ul>
+                    </div>
+                    <div class="log-section">
+                        <h3>Eventos do sistema</h3>
+                        <ul class="history-list">
+                            <li>2025-06-16 14:35:10 - Produto "Coca-Cola" desativado por João Silva.</li>
+                            <li>2025-06-16 14:32:05 - Nova promoção "McOferta 1 - 10% de desconto" aplicada.</li>
+                            <li>2025-06-16 10:00:00 - Modo de atendimento ativado.</li>
+                        </ul>
+                    </div>
+                    <div class="log-section">
+                        <h3>Relatórios de uso</h3>
+                        <p><strong>Pedidos feitos hoje:</strong> 150</p>
+                        <p><strong>Faturamento total hoje:</strong> R$ 2.500,00</p>
+                        <p><strong>Produtos mais vendidos:</strong> Lanche X-Burger (50), Refrigerante Cola (40)</p>
+                        <button class="btn-secondary">Gerar Relatório Completo</button>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <script type="module" src="/FrontAddons/JS/adm/admin-back.js"></script>
+        <script src="/FrontAddons/JS/adm/gProduto.js"></script>
+        <script src="/FrontAddons/JS/adm/Pedidos.js"></script>
+</body>
+
+</html>

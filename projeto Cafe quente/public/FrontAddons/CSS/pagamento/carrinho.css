@@ -1,0 +1,464 @@
+/* === BASE GERAL === */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding-bottom: 120px;
+    background: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background: #ec0a0a;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item:hover {
+    background: #f1f1f1;
+}
+
+.voltar {
+    height: 50px;
+    width: 100%;
+    max-width: 180px;
+    font-size: 18px;
+    color: black !important;
+    background-color: white;
+    border: 1px solid aliceblue;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-left: -120px;
+}
+
+.voltar:hover {
+    background: #e0e0e0 !important;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.Finalizar {
+    margin-left: 80px;
+    background: #ec0a0a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.Finalizar:hover {
+    background: #c00;
+    transform: translateY(-2px);
+}
+
+.footer-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.footer-buttons button {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.footer-buttons button:hover {
+    background: #e5533f;
+    transform: translateY(-2px);
+}
+
+.btn-remover-item {
+    background: rgba(255, 0, 0, 0.7);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-remover-item:hover {
+    background: rgba(248, 79, 79, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.btn-remover-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
+    transform: rotate(30deg);
+    transition: all 0.5s ease;
+    pointer-events: none;
+}
+
+.btn-remover-item:hover::before {
+    top: -30%;
+    left: -30%;
+}
+
+.cancel,
+#cancelar {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cancel:hover,
+#cancelar:hover {
+    background-color: aliceblue;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.payment-option button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.payment-option button:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.modal-content button.cancel {
+    background: #6c757d;
+}
+
+.modal-content button.cancel:hover {
+    background: #5a6268;
+}
+
+
+/* === MODAL SESAI CPF CORRIGIDO === */
+
+.sesaiCPF {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sesaiCPF.active {
+    display: flex;
+    opacity: 1;
+}
+
+.colocarCPF {
+    background: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(-20px);
+    /* Adicionado para melhor controle */
+    margin: 0 auto;
+    /* Centraliza horizontalmente */
+}
+
+.sesaiCPF.active .colocarCPF {
+    transform: translate(-50%, -50%) translateY(0);
+}
+
+.inputCPF {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputCPF h3 {
+    color: #333;
+    font-size: 22px;
+    margin: 0 0 5px 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+.inputCPF p {
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+#preenchercpf {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+#preenchercpf::-webkit-outer-spin-button,
+#preenchercpf::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#preenchercpf {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 1.3s;
+}
+
+#preenchercpf:focus {
+    outline: none;
+    border-color: #cc0000;
+    box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.grupo-botoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cancelar {
+    margin-left: 0;
+}
+
+.mostrar-pag {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.mostrar-pag.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.mostrar-pag.active .modal-content {
+    transform: scale(1);
+}
+
+.qr-code-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.qr-code-placeholder {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 2px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #999;
+    margin: 0 auto;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.btn-envCpf,
+.cancelar {
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-envCpf {
+    background-color: #ff0303;
+    color: white;
+}
+
+.btn-envCpf:hover {
+    background-color: #a30000;
+    transform: translateY(-2px);
+}
+
+.cancelar {
+    background-color: white;
+    color: #333;
+}
+
+.cancelar:hover {
+    background-color: aliceblue;
+}
+
+@media (max-width: 600px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .voltar,
+    .Finalizar {
+        margin-left: 0;
+    }
+    .footer-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .colocarCPF {
+        padding: 20px;
+        width: 95%;
+        margin-right: -830px !important;
+    }
+    .inputCPF {
+        gap: 15px;
+    }
+    .btn-envCpf,
+    .cancelar {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}

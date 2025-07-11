@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Carrinho - Cardápio</title>
+    <link rel="stylesheet" href="FrontAddons/CSS/pagamento/carrinho.css">
+</head>
+
+<body>
+    <header>
+        <h1>Seu Carrinho</h1>
+    </header>
+
+    <div class="cart" id="principal"></div>
+    <!-- Adicione mais itens aqui -->
+    </div>
+    <div class="sesaiCPF" id="sessaoCpf" style="display: none;">
+        <main class="colocarCPF">
+            <form class="inputCPF">
+                <h3>CPF NA NOTA</h3>
+                <p>caso nao queira informar seu cpf deixe em branco</p>
+                <input type="text" class="preencher" id="preenchercpf" maxlength="14">
+                <div class="grupo-botoes">
+                    <button id="btn-envCpf" class="btn-envCpf">enviar</button>
+                    <button class="cancelar" id="cancelar">cancelar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+    <footer class="footer-buttons">
+        <button class="voltar" id="voltar">Voltar ao Cardápio</button>
+        <button class="Finalizar" id="Finalizar">Finalizar Pedido</button>
+    </footer>
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <h2>Escolha o Método de Pagamento</h2>
+            <div class="payment-option">
+                <button id="dinheiro">Dinheiro</button>
+                <button id="pix">Pix</button>
+            </div>
+            <button class="cancel" id="cancelar2">Cancelar</button>
+        </div>
+    </div>
+    <div class="mostrar-pag" id="shw-pag">
+        <div class="modal-content">
+            <button class="modal-close" id="fecharQrcode">&times;</button>
+            <h2 class="modal-title">Pagamento via PIX</h2>
+            <p>Escaneie o QRCode abaixo para realizar o pagamento</p>
+
+            <div class="qr-code-container">
+                <div class="qr-code-placeholder" id="qr-code">
+                    QRCode será gerado aqui
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script type="module" src="FrontAddons/JS/carrinho/pagamento.js"></script>
+</body>
+
+</html>

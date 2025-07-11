@@ -1,0 +1,1435 @@
+/*
+ * Este arquivo (style.css) é responsável por definir a aparência visual do painel administrativo.
+ * Ele foi adaptado para seguir o estilo geral do projeto "Café Quente", garantindo uma experiência de usuário consistente.
+ *
+ * As regras CSS aqui definem:
+ * - Cores e fontes globais (variáveis CSS).
+ * - Estilos para elementos básicos como corpo da página, contêineres e botões.
+ * - Layout e aparência da tela de login.
+ * - Estrutura e estilo da barra lateral (sidebar) e do menu de navegação.
+ * - Estilos para as diferentes seções do dashboard (visão geral, produtos, pedidos, logs).
+ * - Aparência dos cards de estatísticas, itens de produto e pedidos.
+ * - Estilos para modais (pop-ups) de adição/edição de produtos.
+ * - Animações e responsividade para diferentes tamanhos de tela.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import "./gProdutos.css";
+
+/*
+ * Variáveis CSS:
+ * Definem um conjunto de cores e tamanhos padronizados para facilitar a manutenção e garantir a consistência visual.
+ * --primary-color: Cor principal, usada para destaques e botões primários.
+ * --primary-hover: Variação da cor principal para estados de hover.
+ * --secondary-color: Cor secundária, geralmente para textos menos importantes ou bordas.
+ * --success-color: Cor para indicar sucesso (ex: produto ativo).
+ * --danger-color: Cor para indicar perigo ou erro (ex: produto inativo, mensagens de erro).
+ * --warning-color: Cor para avisos.
+ * --info-color: Cor para informações.
+ * --light-color: Cor de fundo clara.
+ * --dark-color: Cor de texto escura.
+ * --border-color: Cor padrão para bordas.
+ * --shadow: Sombra padrão para elementos.
+ * --shadow-lg: Sombra maior para elementos em destaque.
+ * --border-radius: Raio padrão para bordas arredondadas.
+ * --transition: Duração padrão para transições de animação.
+ */
+
+:root {
+    --primary-color: #ffbb00;
+    /* Amarelo Café Quente */
+    --primary-hover: #e0a700;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --border-color: #dee2e6;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+
+/*
+ * Reset Básico:
+ * Remove margens e preenchimentos padrão dos navegadores e define o box-sizing para facilitar o layout.
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*
+ * Estilos do Corpo da Página:
+ * Define a fonte, cor de fundo (um gradiente suave), cor do texto e altura mínima para ocupar a tela toda.
+ */
+
+body {
+    font-family: 'Inter', sans-serif;
+    /* Fonte moderna e legível */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Gradiente de fundo */
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    /* Garante que o corpo ocupe toda a altura da viewport */
+}
+
+
+/*
+ * Contêiner Principal:
+ * Define o layout flexível para a aplicação, permitindo que as telas (login/dashboard) se ajustem.
+ */
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/*
+ * Estilos para Telas (Login e Dashboard):
+ * As telas são inicialmente escondidas e exibidas quando a classe 'active' é adicionada.
+ */
+
+.screen {
+    display: none;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.screen.active {
+    display: flex;
+    /* Usa flexbox para centralizar conteúdo ou organizar sidebar/main */
+}
+
+
+/*
+ * Tela de Login:
+ * Centraliza o conteúdo e adiciona preenchimento.
+ */
+
+#login-screen {
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+
+/*
+ * Caixa de Login:
+ * Estilo do card de login: fundo branco, bordas arredondadas, sombra e animação de entrada.
+ */
+
+.login-box {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    animation: slideUp 0.5s ease;
+    /* Animação ao carregar a tela de login */
+}
+
+
+/* Animação para a tela de login */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/*
+ * Cabeçalho da Tela de Login:
+ * Margem inferior para separar do formulário.
+ */
+
+.login-header {
+    margin-bottom: 2rem;
+}
+
+
+/*
+ * Logo na Tela de Login:
+ * Tamanho da fonte e margem para o ícone/logo.
+ */
+
+.logo {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+
+/*
+ * Título na Caixa de Login:
+ * Cor e peso da fonte para o título principal.
+ */
+
+.login-box h2 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+
+/*
+ * Informações de Acesso:
+ * Estilo para o texto de "Acesso restrito...".
+ */
+
+.access-info {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+
+/*
+ * Formulário de Login:
+ * Alinha o texto dos rótulos à esquerda.
+ */
+
+.login-form {
+    text-align: left;
+}
+
+
+/*
+ * Grupo de Formulário (Label + Input):
+ * Margem inferior para separar os campos.
+ */
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+
+/*
+ * Rótulos dos Campos de Formulário:
+ * Exibição em bloco, peso da fonte e cor.
+ */
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--dark-color);
+}
+
+
+/*
+ * Campos de Entrada e Seleção:
+ * Largura total, preenchimento, borda, raio da borda, tamanho da fonte e transição para foco.
+ */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: var(--transition);
+    background: white;
+}
+
+
+/*
+ * Estilo de Foco para Campos de Formulário:
+ * Remove o outline padrão e adiciona uma borda colorida e sombra ao focar.
+ */
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 187, 0, 0.1);
+    /* Sombra suave com a cor primária */
+}
+
+
+/*
+ * Campo de Senha com Botão de Toggle:
+ * Posição relativa para posicionar o botão de toggle dentro do input.
+ */
+
+.password-input {
+    position: relative;
+}
+
+
+/*
+ * Botão de Toggle da Senha:
+ * Posição absoluta para sobrepor o input, centralizado verticalmente.
+ */
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem;
+}
+
+
+/*
+ * Mensagem de Erro:
+ * Estilo para mensagens de erro, com fundo claro e texto em vermelho.
+ */
+
+.error-message {
+    background: #fee;
+    color: var(--danger-color);
+    padding: 0.75rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    border: 1px solid #fcc;
+    font-size: 0.9rem;
+}
+
+
+/*
+ * Credenciais de Teste:
+ * Estilo para a seção de credenciais de teste na tela de login.
+ */
+
+.test-credentials {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+}
+
+
+/*
+ * Estilos de Botões Gerais:
+ * Define o estilo base para todos os botões.
+ */
+
+button {
+    cursor: pointer;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+/*
+ * Botão Primário:
+ * Estilo para o botão principal (ex: Entrar, Salvar).
+ */
+
+.btn-primary {
+    background: var(--primary-color);
+    color: var(--dark-color);
+    width: 100%;
+    justify-content: center;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/*
+ * Efeito de Hover para Botão Primário:
+ * Muda a cor de fundo, adiciona uma pequena translação e sombra ao passar o mouse.
+ */
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+
+/*
+ * Botão Secundário:
+ * Estilo para botões de ação secundária (ex: Cancelar, Atualizar).
+ */
+
+.btn-secondary {
+    background: var(--light-color);
+    color: var(--dark-color);
+    border: 1px solid var(--border-color);
+}
+
+
+/*
+ * Efeito de Hover para Botão Secundário:
+ * Muda a cor de fundo ao passar o mouse.
+ */
+
+.btn-secondary:hover {
+    background: #e9ecef;
+}
+
+
+/*
+ * Botão de Sucesso:
+ * Estilo para botões que indicam sucesso (ex: Ativar Atendimento).
+ */
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+
+/*
+ * Efeito de Hover para Botão de Sucesso:
+ * Escurece a cor de fundo ao passar o mouse.
+ */
+
+.btn-success:hover {
+    background: #218838;
+}
+
+
+/*
+ * Botão de Perigo:
+ * Estilo para botões que indicam perigo ou ação destrutiva (ex: Desativar Atendimento).
+ */
+
+.btn-danger {
+    background: var(--danger-color);
+    color: white;
+}
+
+
+/*
+ * Efeito de Hover para Botão de Perigo:
+ * Escurece a cor de fundo ao passar o mouse.
+ */
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+
+/*
+ * Botão de Logout:
+ * Estilo específico para o botão de sair, com cor de perigo e largura total.
+ */
+
+.btn-logout {
+    background: var(--danger-color);
+    color: white;
+    width: 100%;
+    justify-content: center;
+}
+
+
+/*
+ * Efeito de Hover para Botão de Logout:
+ * Escurece a cor de fundo ao passar o mouse.
+ */
+
+.btn-logout:hover {
+    background: #c82333;
+}
+
+
+/*
+ * Estilos da Aplicação Principal:
+ * Define o fundo da área principal da aplicação.
+ */
+
+#main-app {
+    background: var(--light-color);
+}
+
+
+/*
+ * Barra Lateral (Sidebar):
+ * Define a largura, fundo, sombra, layout flexível (coluna) e posição fixa.
+ */
+
+.sidebar {
+    width: 280px;
+    background: white;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    /* Fica fixo na tela ao rolar */
+    top: 0;
+    height: 100vh;
+    /* Ocupa toda a altura da viewport */
+}
+
+
+/*
+ * Cabeçalho da Sidebar:
+ * Preenchimento, borda inferior e alinhamento de texto.
+ */
+
+.sidebar-header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+}
+
+
+/*
+ * Logo no Cabeçalho da Sidebar:
+ * Tamanho da fonte e margem.
+ */
+
+.sidebar-header .logo {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+
+/*
+ * Título no Cabeçalho da Sidebar:
+ * Cor e margem.
+ */
+
+.sidebar-header h3 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+}
+
+
+/*
+ * Informações do Usuário na Sidebar:
+ * Fundo, preenchimento e bordas arredondadas.
+ */
+
+.user-info {
+    background: var(--light-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+
+/*
+ * Nome do Usuário na Sidebar:
+ * Peso da fonte e cor.
+ */
+
+.user-info p {
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+
+/*
+ * Função do Usuário na Sidebar:
+ * Cor e tamanho da fonte.
+ */
+
+.user-info small {
+    color: var(--secondary-color);
+}
+
+
+/*
+ * Navegação Principal (Menu):
+ * Ocupa o espaço restante na sidebar e adiciona preenchimento.
+ */
+
+.main-nav {
+    flex: 1;
+    padding: 1rem 0;
+}
+
+
+/*
+ * Lista de Itens do Menu:
+ * Remove os marcadores de lista padrão.
+ */
+
+.main-nav ul {
+    list-style: none;
+}
+
+
+/*
+ * Itens da Lista do Menu:
+ * Margem inferior para espaçamento.
+ */
+
+.main-nav li {
+    margin-bottom: 0.25rem;
+}
+
+
+/*
+ * Botões do Menu:
+ * Largura total, fundo transparente, cor do texto, alinhamento, preenchimento, bordas arredondadas e transição.
+ * Adiciona uma borda esquerda transparente que muda de cor ao passar o mouse ou quando ativo.
+ */
+
+.menu-item {
+    width: 100%;
+    background: transparent;
+    color: var(--dark-color);
+    text-align: left;
+    padding: 1rem 2rem;
+    border-radius: 0;
+    font-weight: 500;
+    transition: var(--transition);
+    border-left: 4px solid transparent;
+}
+
+
+/*
+ * Efeito de Hover para Itens do Menu:
+ * Muda o fundo e a cor da borda esquerda ao passar o mouse.
+ */
+
+.menu-item:hover {
+    background: var(--light-color);
+    border-left-color: var(--primary-color);
+}
+
+
+/*
+ * Item de Menu Ativo:
+ * Fundo levemente colorido, borda esquerda com a cor primária e texto com a cor primária.
+ */
+
+.menu-item.active {
+    background: rgba(255, 187, 0, 0.1);
+    /* Fundo suave com a cor primária */
+    border-left-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+
+/*
+ * Rodapé da Sidebar:
+ * Preenchimento e borda superior.
+ */
+
+.sidebar-footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+
+/*
+ * Área de Conteúdo Principal:
+ * Ocupa o espaço restante, adiciona preenchimento e rolagem vertical.
+ */
+
+.content-area {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    /* Permite rolagem se o conteúdo for maior que a tela */
+    background: var(--light-color);
+}
+
+
+/*
+ * Seções de Conteúdo:
+ * Inicialmente escondidas e exibidas quando a classe 'active' é adicionada, com uma animação de fade in.
+ */
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+    /* Animação ao exibir a seção */
+}
+
+.content-section.active {
+    display: block;
+}
+
+
+/* Animação de Fade In */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+/*
+ * Cabeçalho de Seção:
+ * Layout flexível para alinhar título e botões, margem inferior e borda inferior.
+ */
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+
+/*
+ * Título do Cabeçalho de Seção:
+ * Cor e peso da fonte.
+ */
+
+.section-header h2 {
+    color: var(--dark-color);
+    font-weight: 600;
+}
+
+
+/*
+ * Dashboard (Visão Geral):
+ * Layout de grade para os cards de estatísticas.
+ */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Colunas responsivas */
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+
+/*
+ * Card do Dashboard:
+ * Fundo branco, preenchimento, bordas arredondadas, sombra, transição e borda esquerda colorida.
+ */
+
+.dashboard-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: var(--transition);
+    border-left: 4px solid var(--primary-color);
+    /* Borda esquerda com a cor primária */
+}
+
+
+/*
+ * Efeito de Hover para Card do Dashboard:
+ * Pequena translação e sombra maior ao passar o mouse.
+ */
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+
+/*
+ * Ícone no Card do Dashboard:
+ * Tamanho da fonte e margem inferior.
+ */
+
+.dashboard-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+
+/*
+ * Título no Card do Dashboard:
+ * Cor, tamanho da fonte, peso, margem e transformação de texto.
+ */
+
+.dashboard-card h3 {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/*
+ * Métrica no Card do Dashboard:
+ * Tamanho da fonte, peso e cor primária para os valores numéricos.
+ */
+
+.dashboard-card .metric {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+
+/*
+ * Informações do Dashboard:
+ * Fundo branco, preenchimento, bordas arredondadas e sombra.
+ */
+
+.dashboard-info {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+/*
+ * Lista de Produtos:
+ * Layout de grade para os itens de produto.
+ */
+
+.product-list {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+/*
+ * Item de Produto:
+ * Fundo branco, preenchimento, bordas arredondadas, sombra, layout flexível e transição.
+ */
+
+.product-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: var(--transition);
+}
+
+
+/*
+ * Efeito de Hover para Item de Produto:
+ * Pequena translação e sombra maior ao passar o mouse.
+ */
+
+.product-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+
+/*
+ * Imagem do Produto:
+ * Largura, altura, ajuste da imagem e bordas arredondadas.
+ */
+
+.product-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+}
+
+
+/*
+ * Detalhes do Produto:
+ * Ocupa o espaço restante no layout flexível.
+ */
+
+.product-details {
+    flex: 1;
+}
+
+
+/*
+ * Título do Produto:
+ * Cor e margem inferior.
+ */
+
+.product-details h4 {
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+
+/*
+ * Descrição do Produto:
+ * Cor e tamanho da fonte.
+ */
+
+.product-details p {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+
+/*
+ * Preço do Produto:
+ * Tamanho da fonte, peso e cor de sucesso.
+ */
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--success-color);
+}
+
+
+/*
+ * Ações do Produto (Botões):
+ * Layout flexível para os botões de ação.
+ */
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+/*
+ * Botões de Ação do Produto:
+ * Preenchimento e tamanho da fonte.
+ */
+
+.product-actions button {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+}
+
+
+/*
+ * Lista de Pedidos:
+ * Layout de grade para os itens de pedido.
+ */
+
+.order-list {
+    display: grid;
+    gap: 1rem;
+}
+
+
+/*
+ * Item de Pedido:
+ * Fundo branco, preenchimento, bordas arredondadas, sombra e borda esquerda colorida baseada no status.
+ */
+
+.order-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--border-color);
+}
+
+
+/*
+ * Cores da Borda Esquerda do Pedido por Status:
+ * Define a cor da borda esquerda do item de pedido de acordo com o status.
+ */
+
+.order-item.status-selecting {
+    border-left-color: var(--warning-color);
+}
+
+.order-item.status-payment {
+    border-left-color: var(--info-color);
+}
+
+.order-item.status-completed {
+    border-left-color: var(--success-color);
+}
+
+
+/*
+ * Cabeçalho do Pedido:
+ * Layout flexível para alinhar informações do pedido.
+ */
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+
+/*
+ * Status do Pedido:
+ * Preenchimento, bordas arredondadas, tamanho da fonte, peso e transformação de texto.
+ */
+
+.order-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+/*
+ * Detalhes do Pedido:
+ * Cor e tamanho da fonte.
+ */
+
+.order-details {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+
+/*
+ * Configurações do Sistema:
+ * Layout de grade para os grupos de configurações.
+ */
+
+.settings-grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+
+/*
+ * Grupo de Configurações:
+ * Fundo branco, preenchimento, bordas arredondadas e sombra.
+ */
+
+.settings-group {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+/*
+ * Título do Grupo de Configurações:
+ * Margem inferior e cor.
+ */
+
+.settings-group h3 {
+    margin-bottom: 1rem;
+    color: var(--dark-color);
+}
+
+
+/*
+ * Botões de Ação nas Configurações:
+ * Layout flexível e quebra de linha para botões.
+ */
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+
+/*
+ * Slider de Volume:
+ * Largura total e margem.
+ */
+
+#volume-slider {
+    width: 100%;
+    margin: 1rem 0;
+}
+
+
+/*
+ * Modo de Atendimento:
+ * Fundo branco, preenchimento, bordas arredondadas e sombra.
+ */
+
+.service-controls {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+/*
+ * Status do Serviço:
+ * Margem inferior e alinhamento de texto.
+ */
+
+.service-status {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+
+/*
+ * Status Ativo:
+ * Cor verde e peso da fonte para indicar que o serviço está ativo.
+ */
+
+.status-active {
+    color: var(--success-color);
+    font-weight: 600;
+}
+
+
+/*
+ * Status Inativo:
+ * Cor vermelha e peso da fonte para indicar que o serviço está inativo.
+ */
+
+.status-inactive {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+
+/*
+ * Ações do Serviço:
+ * Layout flexível e centralização dos botões.
+ */
+
+.service-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+
+/*
+ * Logs e Histórico:
+ * Layout de grade para as seções de logs.
+ */
+
+.logs-container {
+    display: grid;
+    gap: 2rem;
+}
+
+
+/*
+ * Seção de Log:
+ * Fundo branco, preenchimento, bordas arredondadas e sombra.
+ */
+
+.log-section {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+
+/*
+ * Exibição de Log:
+ * Fundo claro, borda, bordas arredondadas, preenchimento, fonte monoespaçada, rolagem vertical e margem.
+ */
+
+.log-display {
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    font-family: 'Courier New', monospace;
+    /* Fonte para logs */
+    font-size: 0.85rem;
+    max-height: 300px;
+    overflow-y: auto;
+    /* Permite rolagem se houver muitos logs */
+    margin: 1rem 0;
+}
+
+
+/*
+ * Entrada de Log:
+ * Margem inferior e preenchimento.
+ */
+
+.log-entry {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+
+/*
+ * Estilos de Entrada de Log por Tipo:
+ * Define cores de fundo e texto para diferentes tipos de log (erro, aviso, info).
+ */
+
+.log-entry.error {
+    background: #fee;
+    color: var(--danger-color);
+}
+
+.log-entry.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.log-entry.info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+
+/*
+ * Lista de Eventos:
+ * Altura máxima e rolagem vertical.
+ */
+
+.events-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
+/*
+ * Item de Evento:
+ * Preenchimento e borda inferior.
+ */
+
+.event-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+
+/*
+ * Último Item de Evento:
+ * Remove a borda inferior do último item.
+ */
+
+.event-item:last-child {
+    border-bottom: none;
+}
+
+
+/*
+ * Modal (Pop-up):
+ * Posição fixa, fundo semi-transparente, layout flexível para centralizar o conteúdo e z-index alto.
+ */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Fundo escuro semi-transparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Garante que o modal fique acima de outros elementos */
+}
+
+
+/*
+ * Conteúdo do Modal:
+ * Fundo branco, preenchimento, bordas arredondadas, sombra, largura máxima e rolagem vertical.
+ */
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    /* Altura máxima para evitar que o modal seja maior que a tela */
+    overflow-y: auto;
+    /* Permite rolagem se o conteúdo for muito grande */
+}
+
+
+/*
+ * Cabeçalho do Modal:
+ * Layout flexível para alinhar título e botão de fechar, margem inferior e borda inferior.
+ */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+/*
+ * Botão de Fechar Modal:
+ * Estilo para o botão 'x' de fechar o modal.
+ */
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    color: var(--secondary-color);
+}
+
+
+/*
+ * Ações do Modal (Botões de Salvar/Cancelar):
+ * Layout flexível, espaçamento, alinhamento à direita, margem superior e borda superior.
+ */
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+
+/*
+ * Overlay de Carregamento:
+ * Posição fixa, fundo semi-transparente, layout flexível para centralizar o spinner e z-index muito alto.
+ */
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    /* Fundo branco semi-transparente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    /* Garante que fique acima de tudo */
+}
+
+
+/*
+ * Spinner de Carregamento:
+ * Tamanho da fonte e animação de rotação.
+ */
+
+.loading-spinner {
+    font-size: 3rem;
+    animation: spin 1s linear infinite;
+    /* Animação de rotação contínua */
+}
+
+
+/* Animação de Rotação */
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/*
+ * Responsividade (para telas menores que 768px):
+ * Ajusta o layout para dispositivos móveis.
+ */
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        /* Sidebar ocupa toda a largura */
+        height: auto;
+        position: relative;
+        /* Não fica mais fixa */
+    }
+    #main-app {
+        flex-direction: column;
+        /* Conteúdo principal e sidebar em coluna */
+    }
+    .content-area {
+        padding: 1rem;
+        /* Reduz o preenchimento */
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        /* Uma coluna para os cards do dashboard */
+    }
+    .service-actions,
+    .action-buttons {
+        flex-direction: column;
+        /* Botões em coluna */
+    }
+    .modal-content {
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        /* Modal ocupa quase toda a largura */
+    }
+}
+
+
+/*
+ * Classes de Utilidade:
+ * Classes auxiliares para alinhamento de texto e margens rápidas.
+ */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mb-1 {
+    margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+    margin-bottom: 1rem;
+}
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+}
+
+.mt-1 {
+    margin-top: 0.5rem;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+
+.mt-3 {
+    margin-top: 1.5rem;
+}

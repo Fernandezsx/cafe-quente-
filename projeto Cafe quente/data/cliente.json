@@ -1,0 +1,77 @@
+[
+  {
+    "id": "PED-1752176917975",
+    "cliente": {
+      "nome": "jhonatan",
+      "cpf": "null",
+      "email": "jhonatan_1752176917975@totem.com"
+    },
+    "itens": [
+      {
+        "id": 1,
+        "nome": "xLazaro",
+        "preco": 65,
+        "quantidade": 1,
+        "subtotal": 65
+      }
+    ],
+    "total": 65,
+    "dataHora": "2025-07-10T19:48:37.975Z",
+    "pagamento": {
+      "metodo": "Pix",
+      "cpfNaNota": true
+    },
+    "status": "aguardando_pagamento",
+    "preferenceId": "2543298449-a6b918c2-bf88-4296-8db8-a4a1ed4e4f28"
+  },
+  {
+    "id": "PED-1752177115832",
+    "cliente": {
+      "nome": "jhonatan",
+      "cpf": "null",
+      "email": "jhonatan_1752177115832@totem.com"
+    },
+    "itens": [
+      {
+        "id": 3,
+        "nome": "BatataLazaro",
+        "preco": 12,
+        "quantidade": 1,
+        "subtotal": 12
+      }
+    ],
+    "total": 12,
+    "dataHora": "2025-07-10T19:51:55.832Z",
+    "pagamento": {
+      "metodo": "Pix",
+      "cpfNaNota": true
+    },
+    "status": "aguardando_pagamento",
+    "preferenceId": "2543298449-6e346e07-66fd-40c5-a541-a27e0f31e3a0"
+  },
+  {
+    "id": "PED-1752232526106",
+    "cliente": {
+      "nome": "dasfd",
+      "cpf": "null",
+      "email": "dasfd_1752232526106@totem.com"
+    },
+    "itens": [
+      {
+        "id": 9,
+        "nome": "teste combo",
+        "preco": 12,
+        "quantidade": 2,
+        "subtotal": 24
+      }
+    ],
+    "total": 24,
+    "dataHora": "2025-07-11T11:15:26.106Z",
+    "pagamento": {
+      "metodo": "Pix",
+      "cpfNaNota": true
+    },
+    "status": "aguardando_pagamento",
+    "preferenceId": "2543298449-31f3df59-fb53-4a4f-9146-6b06791c7e29"
+  }
+]
