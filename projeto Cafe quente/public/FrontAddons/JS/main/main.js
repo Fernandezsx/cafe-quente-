@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const finalizar = document.getElementById('botao-pedido') || document.getElementById('finalizar');
     const pedido = localStorage.getItem('pedido') || localStorage.getItem('nomeCliente');
     const btnEnviar = document.getElementById("btn-enviar");
+    const btnIniciar = document.querySelector('.btn-iniciarPed');
 
     let inactivityTimer;
-    let showFormTimer;
 
     console.log('JS conectado');
 
@@ -30,10 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function showInitialForm() {
-        if (showFormTimer) {
-            clearTimeout(showFormTimer);
-            showFormTimer = null;
-        }
         if (carrossel) {
             carrossel.classList.remove('show');
             carrossel.style.display = 'none';
@@ -43,6 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
             initialScreen.style.display = 'flex';
         }
         startInactivityTimer();
+    }
+
+    // Botão do carrossel para iniciar o pedido
+    if (btnIniciar) {
+        btnIniciar.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            voltarParaApp();
+        });
     }
 
     function configurarListenersInteracao() {
@@ -72,39 +76,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Quando não houver pedido no localStorage (novo usuário ou estado inicial)
     if (!pedido) {
-        console.warn("Não existe usuário - mostrando carrossel primeiro");
+        console.warn("Não existe usuário - iniciando pela tela de nome");
 
-        // Limpa o localStorage logo antes de exibir o carrossel
+        // Garante que o carrossel esteja oculto e parado
+        if (carrossel) {
+            carrossel.classList.remove('show');
+            carrossel.style.display = 'none';
+            pararCarrossel();
+        }
+
+        // Limpa dados antigos e mostra o formulário de nome
         localStorage.removeItem("nomeCliente");
         localStorage.removeItem("pedido");
 
-        // Exibe o carrossel sem depender do pedido ou nome
-        if (carrossel) {
-            carrossel.style.display = 'flex';
-            setTimeout(() => {
-                carrossel.classList.add('show');
-            }, 10);
-            stopInactivityTimer();
-            iniciarCarrossel(); // Inicia o carrossel
-        }
-
         if (initialScreen) {
-            initialScreen.style.display = 'none'; // Esconde o form
+            initialScreen.style.display = 'flex';
         }
 
-        showFormTimer = setTimeout(showInitialForm, 10000); // 10 segundos
-
-        // Define comportamento após interação do usuário
-        const showFormOnInteraction = () => {
-            showInitialForm();
-            document.removeEventListener('click', showFormOnInteraction);
-            document.removeEventListener('touchstart', showFormOnInteraction);
-            document.removeEventListener('keypress', showFormOnInteraction);
-        };
-
-        document.addEventListener('click', showFormOnInteraction);
-        document.addEventListener('touchstart', showFormOnInteraction);
-        document.addEventListener('keypress', showFormOnInteraction);
+        // Inicia o timer de inatividade para exibir o carrossel após 30s
+        startInactivityTimer();
 
         document.addEventListener('click', handleClick);
 
@@ -141,10 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (btnEnviar) {
             btnEnviar.addEventListener("click", function() {
-                if (showFormTimer) {
-                    clearTimeout(showFormTimer);
-                    showFormTimer = null;
-                }
 
                 // Adiciona as informações ao localStorage
                 localStorage.setItem("nomeCliente", document.getElementById("nomeCliente").value);
