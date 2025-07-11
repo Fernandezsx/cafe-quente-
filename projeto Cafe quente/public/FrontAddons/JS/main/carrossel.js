@@ -198,7 +198,9 @@ function stopInactivityTimer() {
  * Mostra o carrossel após período de inatividade
  */
 function showCarrossel() {
-    localStorage.removeItem("nomeCliente", "pedido")
+    // Limpa os dados do usuário para reiniciar o totem após a inatividade
+    localStorage.removeItem("nomeCliente");
+    localStorage.removeItem("pedido");
     const carrossel = document.getElementById("carroça");
     if (carrossel) {
         console.log("📺 Mostrando carrossel por inatividade");
